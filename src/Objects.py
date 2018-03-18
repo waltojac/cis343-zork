@@ -32,8 +32,8 @@ class House(Observable, Observer):
         #add NPCS to house
         for i in range(randint(0,10)):
             tmp = choice(options)
-            tmp.add_observer(self)
-            self.occupants.append(tmp)
+            #tmp.add_observer(tmp, self)
+            self.occupants.append(tmp())
     
 
 class Weapon(object):

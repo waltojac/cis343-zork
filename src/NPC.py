@@ -14,8 +14,8 @@ class NPC(Observable):
         self.hp = healthPoint
         self.attack = attackStrength
         
-    def defend(self, points):
-        self.hp -= points
+    #def defend(self, points):
+        #self.hp -= points
         
       
 ''' Person class.'''
@@ -82,8 +82,6 @@ class Werewolve(NPC):
     #defense function
     def defend(self, weapon, player):
         if ((weapon.name != "chocolateBar") and (weapon.name != "sourStraw")):
-            self.hp = self.hp - (5 * weapon.attack * player.attack)
-        else:
             self.hp = self.hp - (weapon.attack * player.attack)
             
         #if they are defeated and ready to be a human
