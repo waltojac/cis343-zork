@@ -14,8 +14,17 @@ class Neighborhood(Observer):
 
     ''' Constructor '''
     def __init__(self, width, height):
+        self.numMonsters = 0
         Observer.__init__(self)
         self.grid = [[House() for x in range(width)] for y in range(height)]
+        for l in self.grid:
+            for h in l:
+                h.add_observer(self)
+                self.numMonsters += h.numMonsters
+                
+    def updateObserver(self, object):
+        self.numMonsters -= 1
+            
         
 class House(Observable, Observer):
 
@@ -25,15 +34,26 @@ class House(Observable, Observer):
         Observer.__init__(self)
         
         self.occupants = []
+        self.numMonsters = 0
         
         #list of NPCS for randomization
         options = [Person, Zombie, Vampire, Ghoul, Werewolve]
         
         #add NPCS to house
         for i in range(randint(0,10)):
-            tmp = choice(options)
-            #tmp.add_observer(tmp, self)
-            self.occupants.append(tmp())
+            op = choice(options)
+            if (op != Person):
+                self.numMonsters += 1
+            tmp = op()
+            Observable.add_observer(tmp, self)
+            self.occupants.append(tmp)
+            
+    def updateObserver(self, object):
+        self.occupants.remove(object)
+        self.occupants.append(Person())
+        self.numMonsters -= 1
+        Observable.update(self)
+        
     
 
 class Weapon(object):

@@ -20,6 +20,7 @@ class NPC(Observable):
       
 ''' Person class.'''
 class Person(NPC):
+    name = "Person"
     def __init__(self):
         NPC.__init__(self, 100, -1)
     def defend(self, weapon, player):
@@ -28,6 +29,7 @@ class Person(NPC):
 
 ''' Zombie class.'''
 class Zombie(NPC):
+    name = "Zombie"
     def __init__(self):
         healthPoint = randint(50,100)
         attackStrength = randint(0,10)
@@ -40,10 +42,12 @@ class Zombie(NPC):
         else:
             self.hp = self.hp - (weapon.attack * player.attack)
         if (self.hp <= 0):
+            print("Zombie defeated!")
             Observable.update(self)
 
 ''' Vampire class.'''
 class Vampire(NPC):
+    name = "Vampire"
     def __init__(self):
         healthPoint = randint(100,200)
         attackStrength = randint(10,20)
@@ -54,10 +58,12 @@ class Vampire(NPC):
         if (weapon.name != "chocolateBar"):
             self.hp = self.hp - (weapon.attack * player.attack)
         if (self.hp <= 0):
+            print("Vampire defeated!")
             Observable.update(self)
             
 ''' Ghoul class.'''
 class Ghoul(NPC):
+    name = "Ghoul"
     def __init__(self):
         healthPoint = randint(40,80)
         attackStrength = randint(15,30)
@@ -70,10 +76,12 @@ class Ghoul(NPC):
         else:
             self.hp = self.hp - (weapon.attack * player.attack)
         if (self.hp <= 0):
+            print("Ghoul defeated!")
             Observable.update(self)
             
 ''' Werewolve class.'''        
 class Werewolve(NPC):
+    name = "Werewolve"
     def __init__(self):
         healthPoint = 200
         attackStrength = randint(0,40)
@@ -86,6 +94,7 @@ class Werewolve(NPC):
             
         #if they are defeated and ready to be a human
         if (self.hp <= 0):
+            print("Werewolve defeated!")
             Observable.update(self)
 
 

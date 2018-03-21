@@ -9,8 +9,8 @@ from abc import ABCMeta, abstractmethod
 class Observer(object):
         __metaclass__ = ABCMeta
  
-        #@abstractmethod
-        def updateObserver(self):
+        @abstractmethod
+        def updateObserver(self, object):
                 pass 
             
 class Observable(object):
@@ -31,4 +31,6 @@ class Observable(object):
  
         def update(self):
                 for observer in self.observers:
-                        observer.update()
+                        observer.updateObserver(self)
+                        
+    

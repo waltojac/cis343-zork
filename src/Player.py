@@ -7,6 +7,7 @@ from random import randint, choice
 from Objects import HersheyKiss, SourStraw, ChocolateBar, NerdBomb
 from scipy.stats.distributions import randint_gen
 from observable_pattern import Observable
+from numpy import integer
 
 class Player(object):
     '''
@@ -40,8 +41,13 @@ class Player(object):
             for j in range(len(options)):
                 print(str(j) + " - " + str(options[j].name))
         
-            z = int(input("Pick a weapon:"))
-            if (z < (len(options)) and z >= 0):
+            z = raw_input("Pick a weapon:")
+            try:
+                z = int(z)
+            except ValueError:
+                print("That's not an int!")
+                z = 10
+            if (z < (len(options)) and z >= 0 and isinstance(z, int)):
                 flag = False
                 break
             else:
@@ -58,15 +64,25 @@ class Player(object):
         
         #attack each occupant
         if len(home.occupants) != 0:
-            for x in range(len(home.occupants)):
-                home.occupants[x].defend(self.weapons[i], self)
+            #TODO Iterator
+            for x in home.occupants:
+                x.defend(self.weapons[i], self)
                 
             #decrease uses
             self.weapons[i].uses -= 1
             if self.weapons[i].uses == 0:
                 print (str(self.weapons[i].name) + " is out of uses!")
                 self.weapons.pop(i)
+    
+    
+    def defend(self, home):
+        totalLoss = 0
+        for monster in home.occupants:
+            totalLoss += monster.attack
         
-        
+        self.hp -= totalLoss
+        if (self.hp < 0):
+            print("You lost!")
+            exit(0)
             
         
