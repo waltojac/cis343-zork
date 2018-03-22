@@ -17,18 +17,39 @@ class Game(object):
         '''
         Constructor
         '''
-        n = Neighborhood(3,3)
+        height = 0
+        width = 0
         
-        #print("Grid: " + str(n.grid))
-        #print("Occupants[1][1]" + str(n.grid[1][1].occupants))
-    
+        #grab and set the width. Checks for valid input
+        flag = True
+        while(flag):
+            width = raw_input("Please enter the WIDTH of the neighborhood: ")
+            try:
+                width = int(width)
+                flag = False
+            except ValueError:
+                print("That's not an int!")
+                
+        #grab and set the height. Checks for valid input
+        flag = True  
+        while(flag):
+            height = raw_input("Please enter the HEIGHT of the neighborhood: ")
+            try:
+                height = int(height)
+                flag = False
+            except ValueError:
+                print("That's not an int!")
+            
+        #create a neighborhood and player
+        self.neighborhood = Neighborhood(width,height)
+        self.player = Player()
     
 def main():
     ''' ''' 
-    #g = Game()
-    #display the neighborhood
-    n = Neighborhood(3,3)
-    p = Player()
+    #initialize the game
+    game = Game()
+    n = game.neighborhood
+    p = game.player
     
     #instructions
     print("--- Welcome to the world of Zork ---")
@@ -39,11 +60,13 @@ def main():
     print("bag to turn those monsters back into your friendly neighbors.")
     print
     time.sleep(4)
+    #show the inventory
     print("Inventory: ")
     for wep in p.weapons:
         print("Name: " + str(wep.name) + "   \tUses: " + str(wep.uses))
     print
     time.sleep(2)
+    #show the stats
     print("Your Attack Strength: " + str(p.attack))
     print("Your Health Points: " + str(p.hp))
     print("Number of Monsters in the Neighborhood: " + str(n.numMonsters))
@@ -53,17 +76,25 @@ def main():
     time.sleep(2)
     
     
+    #main game loop
     while(True):
         print
         nStr = ""
         count = 1
+        
+        #print the neighborhood
         for i in n.grid:
             for h in i:
                 nStr += "House " + str(count) +" (" + str(h.numMonsters) + " mon)\t |   "
                 count += 1
-            nStr += "\n------------------------------------------------------------------\n"
+            nStr += "\n"
+            for j in range(len(i)):
+                nStr += "----------------------"
+            nStr += "\n"
         print (nStr)
         
+        
+        #grab the valid house number. Rejects non-ints
         flag = True
         while(flag):
             #choose house and decode number
@@ -79,24 +110,27 @@ def main():
             else:
                 flag = False
         
+        
+        #decode the house number into coordinates
         r = (choice - 1) / 3
         c = (choice - 1) % 3
         h = n.grid[r][c]
         
-        #Show occupant info
+        #Show occupant info of the selected house
         mStr = "Occupants: "
         for monster in h.occupants:
             mStr += monster.name + ", "
         print (mStr)
         
+        #attack all the monsters
         p.attackNPC(h)
+        #defend from all the monsters
         p.defend(h)
-        #print(str(p.weapons))
+        
+        #show stats
         print("Your Health Points: " + str(p.hp))
         print("Number of Monsters left: " + str(n.numMonsters))
-
-
-
     
-
+    
+#call the main function
 main()

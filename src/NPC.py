@@ -5,6 +5,7 @@ Created on Mar 16, 2018
 '''
 from observable_pattern import Observable
 from random import randint
+from abc import abstractmethod
 
 class NPC(Observable): 
     
@@ -14,8 +15,9 @@ class NPC(Observable):
         self.hp = healthPoint
         self.attack = attackStrength
         
-    #def defend(self, points):
-        #self.hp -= points
+    @abstractmethod
+    def defend(self, weapon, player):
+        pass
         
       
 ''' Person class.'''
@@ -24,7 +26,7 @@ class Person(NPC):
     def __init__(self):
         NPC.__init__(self, 100, -1)
     def defend(self, weapon, player):
-        player.hp += 1
+        pass
 
 
 ''' Zombie class.'''
@@ -97,14 +99,6 @@ class Werewolve(NPC):
             print("Werewolve defeated!")
             Observable.update(self)
 
-
-def main():
-    p = Person()
-    
-    z = Zombie()
-
-    
-main()
 
 
 

@@ -9,6 +9,7 @@ from numpy.oldnumeric.random_array import uniform
 from random import randint, choice
 from NPC import Person, Zombie, Vampire, Ghoul, Werewolve
 
+#neighborhood class to hold a grid of homes
 class Neighborhood(Observer):
     ''' classdocs '''
 
@@ -25,7 +26,7 @@ class Neighborhood(Observer):
     def updateObserver(self, object):
         self.numMonsters -= 1
             
-        
+#class to represent a home. Homes have occupants of either monsters or zombies.   
 class House(Observable, Observer):
 
     def __init__(self):
@@ -47,7 +48,8 @@ class House(Observable, Observer):
             tmp = op()
             Observable.add_observer(tmp, self)
             self.occupants.append(tmp)
-            
+    
+    # Overrides the inherited function. Removes monster and person
     def updateObserver(self, object):
         self.occupants.remove(object)
         self.occupants.append(Person())
@@ -55,26 +57,29 @@ class House(Observable, Observer):
         Observable.update(self)
         
     
-
+#The method from which other weapons inherit.
 class Weapon(object):
-
     def __init__(self, wName, fAttack, nUses):
         self.name = wName
         self.attack = fAttack
         self.uses = nUses
-        
+
+#Kiss weapon, unlimited uses.
 class HersheyKiss(Weapon):
     def __init__(self):
         Weapon.__init__(self, "hersheyKiss", 1, float('inf'))
-        
+
+#straw weapon, 2 uses
 class SourStraw(Weapon):
     def __init__(self):
         Weapon.__init__(self, "sourStraw", uniform(1.0, 1.75) , 2)
-        
+
+#chocolate bar weapon, 4 uses  
 class ChocolateBar(Weapon):
     def __init__(self):
         Weapon.__init__(self, "chocolateBar", uniform(2, 2.4), 4)
-        
+
+#nerd bomb weapon, 1 use      
 class NerdBomb(Weapon):
     def __init__(self):
         Weapon.__init__(self, "nerdBomb", uniform(3.5, 5), 1)
