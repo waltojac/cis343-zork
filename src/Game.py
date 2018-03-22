@@ -6,6 +6,7 @@ Created on Mar 16, 2018
 from Objects import Neighborhood, House
 from Player import Player
 from numpy import integer
+import time
 
 class Game(object):
     '''
@@ -37,16 +38,19 @@ def main():
     print("except for those that were immune. Your task is to use the candy in your")
     print("bag to turn those monsters back into your friendly neighbors.")
     print
+    time.sleep(4)
     print("Inventory: ")
     for wep in p.weapons:
         print("Name: " + str(wep.name) + "   \tUses: " + str(wep.uses))
     print
+    time.sleep(2)
     print("Your Attack Strength: " + str(p.attack))
     print("Your Health Points: " + str(p.hp))
     print("Number of Monsters in the Neighborhood: " + str(n.numMonsters))
     print
     print("Go to each house in the neighborhood, and turn all the monsters back")
     print("into humans! Good luck!")
+    time.sleep(2)
     
     
     while(True):
@@ -63,6 +67,7 @@ def main():
         flag = True
         while(flag):
             #choose house and decode number
+            print
             choice = raw_input("Please enter the house number: ")
             try:
                 choice = int(choice)
