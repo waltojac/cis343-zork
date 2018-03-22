@@ -3,9 +3,8 @@ Created on Mar 16, 2018
 
 @author: jacobwalton
 '''
-from Objects import Neighborhood, House
+from Objects import Neighborhood
 from Player import Player
-from numpy import integer
 import time
 
 class Game(object):
@@ -17,15 +16,15 @@ class Game(object):
         '''
         Constructor
         '''
-        height = 0
-        width = 0
+        self.height = 0
+        self.width = 0
         
         #grab and set the width. Checks for valid input
         flag = True
         while(flag):
-            width = raw_input("Please enter the WIDTH of the neighborhood: ")
+            self.width = raw_input("Please enter the WIDTH of the neighborhood: ")
             try:
-                width = int(width)
+                self.width = int(self.width)
                 flag = False
             except ValueError:
                 print("That's not an int!")
@@ -33,15 +32,15 @@ class Game(object):
         #grab and set the height. Checks for valid input
         flag = True  
         while(flag):
-            height = raw_input("Please enter the HEIGHT of the neighborhood: ")
+            self.height = raw_input("Please enter the HEIGHT of the neighborhood: ")
             try:
-                height = int(height)
+                self.height = int(self.height)
                 flag = False
             except ValueError:
                 print("That's not an int!")
             
         #create a neighborhood and player
-        self.neighborhood = Neighborhood(width,height)
+        self.neighborhood = Neighborhood(self.width, self.height)
         self.player = Player()
     
 def main():
@@ -105,7 +104,7 @@ def main():
             except ValueError:
                 print("That's not an int!")
                 choice = 0
-            if(choice <= 0 or choice > 9 ):
+            if(choice <= 0 or choice >  game.height*game.width):
                 print("Invalid house number. Enter an integer between 1-9.")
             else:
                 flag = False

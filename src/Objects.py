@@ -11,12 +11,13 @@ from NPC import Person, Zombie, Vampire, Ghoul, Werewolve
 
 #neighborhood class to hold a grid of homes
 class Neighborhood(Observer):
-    ''' classdocs '''
-
     ''' Constructor '''
     def __init__(self, width, height):
         self.numMonsters = 0
+        self.monDefeated = 0
         Observer.__init__(self)
+        
+        #create grid
         self.grid = [[House() for x in range(width)] for y in range(height)]
         for l in self.grid:
             for h in l:
@@ -25,6 +26,14 @@ class Neighborhood(Observer):
                 
     def updateObserver(self, object):
         self.numMonsters -= 1
+        self.monDefeated += 1
+        if (self.numMonsters == 0):
+            print
+            print ("You have turned all monsters back into people!")
+            print("Number of Monsters Defeated: " + str(self.monDefeated))
+            print("Well done! Game over.")
+            exit(0)
+
             
 #class to represent a home. Homes have occupants of either monsters or zombies.   
 class House(Observable, Observer):
