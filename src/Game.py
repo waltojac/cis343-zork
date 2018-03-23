@@ -1,6 +1,7 @@
 '''
 Created on Mar 16, 2018
-
+Title: Game.py
+Description: Class used for running the Zork game
 @author: jacobwalton
 '''
 from Objects import Neighborhood
@@ -8,10 +9,7 @@ from Player import Player
 import time
 
 class Game(object):
-    '''
-    classdocs
-    '''
-
+    
     def __init__(self):
         '''
         Constructor
@@ -111,8 +109,8 @@ def main():
         
         
         #decode the house number into coordinates
-        r = (choice - 1) / 3
-        c = (choice - 1) % 3
+        r = (choice - 1) / game.width
+        c = (choice - 1) % game.width
         h = n.grid[r][c]
         
         #Show occupant info of the selected house

@@ -1,6 +1,7 @@
 '''
 Created on Mar 16, 2018
-
+Title: Player.py
+Description: Class of a player used in Zork.
 @author: jacobwalton
 '''
 from random import randint, choice

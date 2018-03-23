@@ -1,6 +1,7 @@
 '''
 Created on Mar 16, 2018
-
+Title: NPC.py
+Description: Class of a monsters used in Zork.
 @author: jacobwalton
 '''
 from observable_pattern import Observable

@@ -1,6 +1,7 @@
 '''
 Created on Mar 16, 2018
-
+Title: Objects.py
+Description: Class of a Neighborhood, House, and weapons used in Zork.
 @author: jacobwalton
 '''
 from observable_pattern import Observable
